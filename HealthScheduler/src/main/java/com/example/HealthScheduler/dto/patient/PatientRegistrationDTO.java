@@ -24,7 +24,7 @@ public record PatientRegistrationDTO(
 
         @Email
         @NotBlank
-        String email,
+        String email
 /*
         @NotNull
         @Valid*/
