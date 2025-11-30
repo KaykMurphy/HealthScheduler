@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AppointmentConflictException.class)
-    public ResponseEntity<ErrorResponse> handleAppointmentConflictException(
+    public ResponseEntity<ErrorResponse> handleAppointmentConflict(
             AppointmentConflictException ex,
             HttpServletRequest request
     ) {
@@ -101,7 +101,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleGenericNotFound(
+    public ResponseEntity<ErrorResponse> handleResourceNotFound(
             ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
@@ -116,6 +116,23 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+
+    // 500 - Internal Server Error
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGenericException(
+            Exception ex,
+            HttpServletRequest request) {
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                Instant.now(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Erro interno no servidor",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
 
 
     // 400 - BAD REQUEST (Validation)
@@ -132,6 +149,7 @@ public class GlobalExceptionHandler {
                         (oldValue, newValue) -> newValue // se repetir, fica o último
                 ));
 
+        //objeto de resposta
         ValidationErrorResponse errorResponse = new ValidationErrorResponse(
                 Instant.now(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -141,5 +159,8 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
+
+
+
 }
 
