@@ -1,6 +1,5 @@
 package com.example.HealthScheduler.dto.appointment;
 
-import com.example.HealthScheduler.entity.Appointment;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

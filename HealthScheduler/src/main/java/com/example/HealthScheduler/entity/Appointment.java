@@ -39,11 +39,18 @@ public class Appointment {
     private LocalDateTime appointmentDate;
 
     @Column(nullable = false)
+    private LocalDateTime startTime;
+
+    @Column(nullable = false)
+    private LocalDateTime endTime;
+
+    @Column(nullable = false)
     private Integer durationMinutes = 30;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
+
 
     @Column(columnDefinition = "TEXT")
     private String cancellationReason;

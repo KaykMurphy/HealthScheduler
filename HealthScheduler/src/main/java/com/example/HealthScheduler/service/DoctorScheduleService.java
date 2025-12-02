@@ -1,6 +1,5 @@
 package com.example.HealthScheduler.service;
 
-import com.example.HealthScheduler.dto.schedule.AvailableSlotDTO;
 import com.example.HealthScheduler.dto.schedule.DoctorScheduleDTO;
 import com.example.HealthScheduler.entity.Doctor;
 import com.example.HealthScheduler.entity.DoctorSchedule;
@@ -13,10 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
-import com.example.HealthScheduler.enums.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 

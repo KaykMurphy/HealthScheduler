@@ -16,6 +16,8 @@ import com.example.HealthScheduler.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -48,21 +50,120 @@ public class AppointmentService {
         LocalDateTime startTime = dto.appointmentDate();
         LocalDateTime endTime = startTime.plusMinutes(dto.durationMinutes());
 
-        if (endTime.isAfter(startTime.withHour(18).withMinute(0))) {
+        LocalDateTime endOfBusiness = startTime.toLocalDate().atTime(18, 0);
+        if (endTime.isAfter(endOfBusiness)) {
             throw new BusinessException("A consulta termina fora do horário permitido");
         }
 
         Appointment appointment = new Appointment();
         appointment.setDoctor(doctor);
         appointment.setPatient(patient);
-        appointment.setCreatedAt(startTime);
+        appointment.setStartTime(startTime);
+        appointment.setEndTime(endTime);              // <- importante
         appointment.setDurationMinutes(dto.durationMinutes());
+        appointment.setCreatedAt(LocalDateTime.now()); // <- correto para createdAt
         appointment.setStatus(AppointmentStatus.SCHEDULED);
 
         appointment = appointmentRepository.save(appointment);
 
         return modelMapper.map(appointment, AppointmentDetailsDTO.class);
     }
+
+    @Transactional
+    public AppointmentDetailsDTO findById(Long id) {
+
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(
+                        "Nenhuma consulta encontrada com o ID: " + id
+                ));
+
+        return modelMapper.map(appointment, AppointmentDetailsDTO.class);
+    }
+
+
+    public Page<AppointmentDetailsDTO> findAll(Pageable pageable){
+
+        Page<Appointment> page = appointmentRepository.findAll(pageable);
+
+        return page.map(appointment ->
+                modelMapper.map(appointment, AppointmentDetailsDTO.class));
+
+    }
+
+    public Page<AppointmentDetailsDTO> findByPatient(Long patientId, Pageable pageable){
+
+        patientRepository.findById(patientId)
+                .orElseThrow(() -> new PatientNotFoundException(
+                        "Paciente não encontrado com o ID: " + patientId
+                ));
+
+        Page<Appointment> page = appointmentRepository.findByPatientId(patientId, pageable);
+
+        return page.map(appointment ->
+                modelMapper.map(appointment, AppointmentDetailsDTO.class)
+        );
+
+    }
+
+    public Page<AppointmentDetailsDTO> findByDoctor(Long doctorId, Pageable pageable){
+
+        doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new DoctorNotFoundException(
+                        "Médico não encontrado com o ID: "+doctorId
+                ));
+
+        Page<Appointment> page = appointmentRepository.findByDoctorId(doctorId, pageable);
+
+        return page.map(appointment ->
+                modelMapper.map(appointment, AppointmentDetailsDTO.class)
+        );
+    }
+
+
+    public Page<AppointmentDetailsDTO> findByStatus(AppointmentStatus status, Pageable pageable){
+
+
+        Page<Appointment> page = appointmentRepository.findByStatus(status, pageable);
+
+        return page.map(
+                appointment -> modelMapper.map(appointment, AppointmentDetailsDTO.class)
+        );
+    }
+
+
+    @Transactional
+    public AppointmentDetailsDTO confirm(Long id){
+
+
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(
+                        "Nenhuma consulta encontrada com o ID: "+id
+                ));
+
+        if (appointment.getStatus() != AppointmentStatus.SCHEDULED) {
+            throw new BusinessException("Somente consultas agendadas podem ser confirmadas");
+        }
+
+
+        if (appointment.getAppointmentDate().isBefore(LocalDateTime.now())){
+            throw new BusinessException("Não é possível confirmar uma consulta que já ocorreu");
+        }
+
+        appointment.setStatus(AppointmentStatus.CONFIRMED);
+
+        //optimistic locking atua no flush
+        appointment = appointmentRepository.save(appointment);
+
+        return modelMapper.map(appointment, AppointmentDetailsDTO.class);
+
+
+    }
+
+
+    // TODO implementar cancel
+
+
+    // TODO implementar complete
 
 
 
