@@ -31,10 +31,10 @@ public class Patient {
     @Column(nullable = false)
     private LocalDate birthDate;
 
-    @Column(length = 20)
+    @Column(length = 20, unique = true)
     private String phone;
 
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String email;
 
     @Column(length = 200)

@@ -8,6 +8,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 
 @Data
 @NoArgsConstructor
@@ -25,4 +26,8 @@ public class PatientDetailsDTO extends RepresentationModel<PatientDetailsDTO> {
     private LocalDateTime createdAt;
 
 
+    // calcula idade
+    public int age() {
+        return Period.between(birthDate, LocalDate.now()).getYears();
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.HealthScheduler.repository;
 
+import com.example.HealthScheduler.entity.Doctor;
 import com.example.HealthScheduler.entity.DoctorSchedule;
 import com.example.HealthScheduler.enums.DayOfWeek;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,9 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, 
 
     Optional<DoctorSchedule> findByDoctorAndDayOfWeek(Long doctorId, DayOfWeek day);
 
-    boolean deleteDoctorById(Long doctorId);
+    boolean deleteByDoctorId(Long doctorId);
+
+    Optional<Doctor> deleteDoctorById(Long doctorId);
+
 
 }
