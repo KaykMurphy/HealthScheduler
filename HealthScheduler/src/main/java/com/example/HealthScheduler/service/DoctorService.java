@@ -37,7 +37,10 @@ public class DoctorService {
         // DTO > Entity
         Doctor doctor = modelMapper.map(dto, Doctor.class);
 
+        doctor.setActive(true);
+
         doctorRepository.save(doctor);
+
 
         // Entity > DTO
         return modelMapper.map(doctor, DoctorDetailsDTO.class);

@@ -26,5 +26,7 @@ public record DoctorRegistrationDTO(
         @NotBlank
         @Email
         String email
+
+
 ) {
 }
