@@ -65,13 +65,13 @@ http://localhost:8080/swagger-ui.html
 
 #### ✅ Sucesso - Cadastro de Médico (201 Created)
 
-![Swagger Response Example](docs/images/swagger-response-doctor.png)
+![Swagger Response Example](HealthScheduler/docs/images/swagger-response-doctor.png)
 
 *Exemplo de resposta bem-sucedida ao cadastrar um médico*
 
 #### ❌ Erro de Validação (400 Bad Request)
 
-![Validation Error Example](docs/images/validation-error-example.png)
+![Validation Error Example](HealthScheduler/docs/images/validation-error-example.png)
 
 *Exemplo de erro quando os dados não atendem às regras de validação*
 
