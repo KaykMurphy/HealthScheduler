@@ -20,7 +20,7 @@ import org.springframework.ui.ModelMap;
 public class PatientService {
 
     private final PatientRepository patientRepository;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
 
     @Transactional
