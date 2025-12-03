@@ -61,6 +61,20 @@ A documentação interativa da API está disponível via Swagger UI:
 http://localhost:8080/swagger-ui.html
 ```
 
+### 📸 Exemplos de Uso
+
+#### ✅ Sucesso - Cadastro de Médico (201 Created)
+
+![Swagger Response Example](docs/images/swagger-response-doctor.png)
+
+*Exemplo de resposta bem-sucedida ao cadastrar um médico*
+
+#### ❌ Erro de Validação (400 Bad Request)
+
+![Validation Error Example](docs/images/validation-error-example.png)
+
+*Exemplo de erro quando os dados não atendem às regras de validação*
+
 ## 🔗 Endpoints Principais
 
 ### 👨‍⚕️ Doctors (Médicos)
@@ -236,6 +250,23 @@ A API implementa HATEOAS, fornecendo links hipermídia nas respostas. Exemplo:
 ## ⚠️ Tratamento de Erros
 
 A API retorna respostas estruturadas para erros:
+
+### Exemplo de Erro de Validação (400)
+
+```json
+{
+  "timestamp": "2025-12-03T21:50:13.057186700Z",
+  "status": 400,
+  "error": "Erro de validação",
+  "errors": {
+    "name": "tamanho deve ser entre 3 e 100"
+  }
+}
+```
+
+![Validation Error](docs/images/validation-error-example.png)
+
+### Exemplo de Recurso Não Encontrado (404)
 
 ```json
 {
