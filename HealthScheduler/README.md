@@ -25,7 +25,7 @@ Sistema de agendamento de consultas médicas desenvolvido com Spring Boot, ofere
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/HealthScheduler.git
+git clone https://github.com/KaykMurphy/HealthScheduler.git
 cd HealthScheduler
 ```
 
