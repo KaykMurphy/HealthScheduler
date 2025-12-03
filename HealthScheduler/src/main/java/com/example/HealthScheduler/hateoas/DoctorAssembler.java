@@ -34,13 +34,32 @@ public class DoctorAssembler extends RepresentationModelAssemblerSupport<Doctor,
 
         dto.add(
                 linkTo(methodOn(DoctorController.class)
-                        .getDoctorById(dto.getId())).withSelfRel()  // link: self
+                        .getById(dto.getId())).withSelfRel()
+        );
+        dto.add(
+                linkTo(methodOn(DoctorController.class)
+                        .getAll(null)).withRel("doctors")
         );
 
+        dto.add(
+                linkTo(methodOn(DoctorController.class)
+                        .update(entity.getId(), null)) // DTO é null no link
+                        .withRel("update")
+                        .withType("PUT")
+        );
+        dto.add(linkTo(methodOn(DoctorController.class)
+                .deactivate(entity.getId())
+                ).withRel("deactivate"));
+
+        dto.add(linkTo(methodOn(DoctorController.class)
+                .activate(entity.getId()))
+                .withRel("active"));
 
 
+        dto.add(linkTo(methodOn(DoctorController.class)
+                .getBySpecialization(entity.getSpecialization(), null))
+                .withRel("by spec"));
 
-
-        return null;
+        return dto;
     }
 }
