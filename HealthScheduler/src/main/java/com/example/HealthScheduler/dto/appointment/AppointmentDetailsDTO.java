@@ -22,7 +22,6 @@ public class AppointmentDetailsDTO extends RepresentationModel<AppointmentDetail
     private LocalDateTime appointmentDate;
     private Integer durationMinutes;
     private AppointmentStatus status;
-    private String cancelladtionReason;
+    private String cancellationReason;
     private LocalDateTime createdAt;
-
 }

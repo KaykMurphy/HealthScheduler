@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="321025d7-1e65-4ce1-93c5-e872fcdb3410" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/hateoas/DoctorAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/hateoas/DoctorAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthScheduler/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/dto/appointment/AppointmentDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/dto/appointment/AppointmentDetailsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/entity/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/entity/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/repository/AppointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/repository/AppointmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/service/DoctorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/src/main/java/com/example/HealthScheduler/service/DoctorService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +52,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.HealthSchedulerApplication.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DoctorServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DoctorServiceTest.shouldRegisterDoctorSuccessfully.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DoctorServiceTest.shouldThrowExceptionWhenCRMExists.executor&quot;: &quot;Run&quot;,
@@ -63,7 +68,20 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.DoctorServiceTest.shouldRegisterDoctorSuccessfully">
+  <component name="RunManager" selected="Application.HealthSchedulerApplication">
+    <configuration name="HealthSchedulerApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.HealthScheduler.HealthSchedulerApplication" />
+      <module name="HealthScheduler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.HealthScheduler.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DoctorServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="HealthScheduler" />
       <extension name="coverage">
@@ -113,6 +131,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HealthSchedulerApplication" />
         <item itemvalue="JUnit.DoctorServiceTest.shouldRegisterDoctorSuccessfully" />
         <item itemvalue="JUnit.DoctorServiceTest.shouldThrowExceptionWhenCRMExists" />
         <item itemvalue="JUnit.DoctorServiceTest" />

@@ -32,8 +32,6 @@ public class AppointmentService {
     private final DoctorScheduleRepository doctorScheduleRepository;
     private final ModelMapper modelMapper;
 
-
-    // criação da consulta
     @Transactional
     public AppointmentDetailsDTO create(Long id, AppointmentRegistrationDTO dto) {
 
@@ -59,9 +57,8 @@ public class AppointmentService {
         appointment.setDoctor(doctor);
         appointment.setPatient(patient);
         appointment.setStartTime(startTime);
-        appointment.setEndTime(endTime);              // <- importante
+        appointment.setEndTime(endTime);
         appointment.setDurationMinutes(dto.durationMinutes());
-        appointment.setCreatedAt(LocalDateTime.now()); // <- correto para createdAt
         appointment.setStatus(AppointmentStatus.SCHEDULED);
 
         appointment = appointmentRepository.save(appointment);
@@ -80,14 +77,12 @@ public class AppointmentService {
         return modelMapper.map(appointment, AppointmentDetailsDTO.class);
     }
 
-
     public Page<AppointmentDetailsDTO> findAll(Pageable pageable){
 
         Page<Appointment> page = appointmentRepository.findAll(pageable);
 
         return page.map(appointment ->
                 modelMapper.map(appointment, AppointmentDetailsDTO.class));
-
     }
 
     public Page<AppointmentDetailsDTO> findByPatient(Long patientId, Pageable pageable){
@@ -102,7 +97,6 @@ public class AppointmentService {
         return page.map(appointment ->
                 modelMapper.map(appointment, AppointmentDetailsDTO.class)
         );
-
     }
 
     public Page<AppointmentDetailsDTO> findByDoctor(Long doctorId, Pageable pageable){
@@ -119,9 +113,7 @@ public class AppointmentService {
         );
     }
 
-
     public Page<AppointmentDetailsDTO> findByStatus(AppointmentStatus status, Pageable pageable){
-
 
         Page<Appointment> page = appointmentRepository.findByStatus(status, pageable);
 
@@ -130,10 +122,8 @@ public class AppointmentService {
         );
     }
 
-
     @Transactional
     public AppointmentDetailsDTO confirm(Long id){
-
 
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(
@@ -144,27 +134,13 @@ public class AppointmentService {
             throw new BusinessException("Somente consultas agendadas podem ser confirmadas");
         }
 
-
-        if (appointment.getAppointmentDate().isBefore(LocalDateTime.now())){
+        if (appointment.getStartTime().isBefore(LocalDateTime.now())){
             throw new BusinessException("Não é possível confirmar uma consulta que já ocorreu");
         }
 
         appointment.setStatus(AppointmentStatus.CONFIRMED);
-
-        //optimistic locking atua no flush
         appointment = appointmentRepository.save(appointment);
 
         return modelMapper.map(appointment, AppointmentDetailsDTO.class);
-
-
     }
-
-
-    // TODO implementar cancel
-
-
-    // TODO implementar complete
-
-
-
 }

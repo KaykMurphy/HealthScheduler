@@ -22,21 +22,12 @@ public class Appointment {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "doctor_id",
-            nullable = false
-    )
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "patient_id",
-            nullable = false
-    )
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-
-    @Column(nullable = false)
-    private LocalDateTime appointmentDate;
 
     @Column(nullable = false)
     private LocalDateTime startTime;
@@ -51,7 +42,6 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
-
     @Column(columnDefinition = "TEXT")
     private String cancellationReason;
 
@@ -63,4 +53,13 @@ public class Appointment {
 
     @Version
     private Integer version;
+
+    // Método auxiliar para compatibilidade com DTOs
+    public LocalDateTime getAppointmentDate() {
+        return startTime;
+    }
+
+    public void setAppointmentDate(LocalDateTime appointmentDate) {
+        this.startTime = appointmentDate;
+    }
 }

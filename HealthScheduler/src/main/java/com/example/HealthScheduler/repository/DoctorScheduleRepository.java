@@ -1,22 +1,18 @@
 package com.example.HealthScheduler.repository;
 
-import com.example.HealthScheduler.entity.Doctor;
 import com.example.HealthScheduler.entity.DoctorSchedule;
-import com.example.HealthScheduler.enums.DayOfWeek;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, Long> {
 
     List<DoctorSchedule> findByDoctorId(Long id);
 
-    Optional<DoctorSchedule> findByDoctorAndDayOfWeek(Long doctorId, DayOfWeek day);
-
-    boolean deleteByDoctorId(Long doctorId);
-
-    Optional<Doctor> deleteDoctorById(Long doctorId);
-
-
+    @Modifying
+    @Query("DELETE FROM DoctorSchedule ds WHERE ds.doctor.id = :doctorId")
+    void deleteByDoctorId(@Param("doctorId") Long doctorId);
 }

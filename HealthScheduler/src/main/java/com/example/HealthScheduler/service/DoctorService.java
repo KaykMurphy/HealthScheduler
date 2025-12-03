@@ -34,15 +34,10 @@ public class DoctorService {
             throw new BusinessException("CRM já cadastrado");
         }
 
-        // DTO > Entity
         Doctor doctor = modelMapper.map(dto, Doctor.class);
-
         doctor.setActive(true);
-
         doctorRepository.save(doctor);
 
-
-        // Entity > DTO
         return modelMapper.map(doctor, DoctorDetailsDTO.class);
     }
 
@@ -68,7 +63,6 @@ public class DoctorService {
                 .findByActiveTrueAndSpecialization(specialization, pageable);
 
         return page.map(doctor -> modelMapper.map(doctor, DoctorDetailsDTO.class));
-
     }
 
     @Transactional
@@ -77,8 +71,6 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new DoctorNotFoundException("Médico não encontrado"));
 
-
-        // Atualiza somente os campos informados no DTO (partial update)
         if (dto.name() != null){
             doctor.setName(dto.name());
         }
@@ -94,17 +86,14 @@ public class DoctorService {
         return modelMapper.map(doctor, DoctorDetailsDTO.class);
     }
 
-
     @Transactional
     public void deactivate(Long id){
 
         Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new DoctorNotFoundException("Médico não encontrado"));
 
-        // Verifica se existe consulta futura
         boolean hasFutureAppointment = appointmentRepository
-                .existsByDoctorIdAndAppointmentDateAfter(id, LocalDateTime.now());
-
+                .existsByDoctorIdAndStartTimeAfter(id, LocalDateTime.now());
 
         if (hasFutureAppointment){
             throw new BusinessException("Não é possível desativar o médico: existem consultas futuras agendadas.");

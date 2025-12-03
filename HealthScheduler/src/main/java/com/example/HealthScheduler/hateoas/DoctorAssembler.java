@@ -3,21 +3,17 @@ package com.example.HealthScheduler.hateoas;
 import com.example.HealthScheduler.controller.DoctorController;
 import com.example.HealthScheduler.dto.doctor.DoctorDetailsDTO;
 import com.example.HealthScheduler.entity.Doctor;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-
 @Component
 public class DoctorAssembler extends RepresentationModelAssemblerSupport<Doctor, DoctorDetailsDTO> {
 
-
-    public DoctorAssembler(Class<?> controllerClass, Class<DoctorDetailsDTO> resourceType) {
-        super(controllerClass, resourceType);
+    public DoctorAssembler() {
+        super(DoctorController.class, DoctorDetailsDTO.class);
     }
 
     @Override
@@ -32,33 +28,28 @@ public class DoctorAssembler extends RepresentationModelAssemblerSupport<Doctor,
                 entity.getEmail()
         );
 
-        dto.add(
-                linkTo(methodOn(DoctorController.class)
-                        .getById(dto.getId())).withSelfRel()
-        );
-        dto.add(
-                linkTo(methodOn(DoctorController.class)
-                        .getAll(null)).withRel("doctors")
-        );
-
-        dto.add(
-                linkTo(methodOn(DoctorController.class)
-                        .update(entity.getId(), null)) // DTO é null no link
-                        .withRel("update")
-                        .withType("PUT")
-        );
         dto.add(linkTo(methodOn(DoctorController.class)
-                .deactivate(entity.getId())
-                ).withRel("deactivate"));
+                .getById(dto.getId())).withSelfRel());
+
+        dto.add(linkTo(methodOn(DoctorController.class)
+                .getAll(null)).withRel("doctors"));
+
+        dto.add(linkTo(methodOn(DoctorController.class)
+                .update(entity.getId(), null))
+                .withRel("update")
+                .withType("PUT"));
+
+        dto.add(linkTo(methodOn(DoctorController.class)
+                .deactivate(entity.getId()))
+                .withRel("deactivate"));
 
         dto.add(linkTo(methodOn(DoctorController.class)
                 .activate(entity.getId()))
-                .withRel("active"));
-
+                .withRel("activate"));
 
         dto.add(linkTo(methodOn(DoctorController.class)
                 .getBySpecialization(entity.getSpecialization(), null))
-                .withRel("by spec"));
+                .withRel("by-specialization"));
 
         return dto;
     }
