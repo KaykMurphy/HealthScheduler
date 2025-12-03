@@ -22,5 +22,18 @@ public class DoctorDetailsDTO extends RepresentationModel<DoctorDetailsDTO> {
     private boolean active;
     private LocalDateTime createdAt;
 
-
+    // Construtor reduzido
+    public DoctorDetailsDTO(Long id,
+                            String name,
+                            String crm,
+                            Specialization specialization,
+                            String phone,
+                            String email) {
+        this.id = id;
+        this.name = name;
+        this.crm = crm;
+        this.specialization = specialization;
+        this.phone = phone;
+        this.email = email;
+    }
 }
