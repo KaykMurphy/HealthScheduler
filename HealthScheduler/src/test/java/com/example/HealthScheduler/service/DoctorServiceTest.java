@@ -3,6 +3,7 @@ package com.example.HealthScheduler.service;
 import com.example.HealthScheduler.ModelConfig.ModelMapperConfig;
 import com.example.HealthScheduler.dto.doctor.DoctorDetailsDTO;
 import com.example.HealthScheduler.dto.doctor.DoctorRegistrationDTO;
+import com.example.HealthScheduler.dto.doctor.DoctorUpdateDTO;
 import com.example.HealthScheduler.entity.Doctor;
 import com.example.HealthScheduler.enums.Specialization;
 import com.example.HealthScheduler.exception.BusinessException;
@@ -12,7 +13,10 @@ import com.example.HealthScheduler.repository.DoctorScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.modelmapper.ModelMapper;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -50,7 +54,7 @@ public class DoctorServiceTest {
     @Test
     void shouldThrowExceptionWhenCRMExists() {
 
-        var dto =  new DoctorRegistrationDTO("Elon", "213451", Specialization.CARDIOLOGY, "2131111", "email@test.com");
+        DoctorRegistrationDTO dto =  new DoctorRegistrationDTO("Elon", "213451", Specialization.CARDIOLOGY, "2131111", "email@test.com");
 
         when(doctorRepository.existsByCrm("213451")).thenReturn(true);
 
@@ -62,7 +66,7 @@ public class DoctorServiceTest {
     @Test
     void shouldRegisterDoctorSuccessfully() {
 
-        var dto = new DoctorRegistrationDTO("Elon", "213451", Specialization.CARDIOLOGY, "2131111", "email@test.com");
+        DoctorRegistrationDTO dto = new DoctorRegistrationDTO("Elon", "213451", Specialization.CARDIOLOGY, "2131111", "email@test.com");
 
         when(doctorRepository.existsByCrm("213451")).thenReturn(false);
 
@@ -75,5 +79,33 @@ public class DoctorServiceTest {
 
 
         verify(doctorRepository).save(any(Doctor.class));
+    }
+
+    @Test
+    void shouldUpdateNameAndEmailAndPhoneWhenProvided() {
+
+        var doctor = new Doctor();
+        doctor.setEmail("email@gmail.com");
+        doctor.setPhone("119990000");
+        doctor.setName("doctor");
+
+        when(doctorRepository.findById(1L)).thenReturn(Optional.of(doctor));
+
+        var dto = new DoctorUpdateDTO("Roby", "1199999999", "dev@gmail.com");
+
+        var result = doctorService.update(1L, dto);
+
+        assertEquals("Roby", result.getName());
+        assertEquals("1199999999", result.getPhone());
+        assertEquals("dev@gmail.com", result.getEmail());
+
+        var capto = ArgumentCaptor.forClass(Doctor.class);
+        verify(doctorRepository).save(capto.capture());
+
+        var saved = capto.getValue();
+        assertEquals("Roby", saved.getName());
+        assertEquals("1199999999", saved.getPhone());
+        assertEquals("dev@gmail.com", saved.getEmail());
+
     }
 }
