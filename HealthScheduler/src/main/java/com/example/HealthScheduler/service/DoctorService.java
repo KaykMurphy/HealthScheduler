@@ -83,6 +83,8 @@ public class DoctorService {
             doctor.setPhone(dto.phone());
         }
 
+        doctorRepository.save(doctor);
+
         return modelMapper.map(doctor, DoctorDetailsDTO.class);
     }
 

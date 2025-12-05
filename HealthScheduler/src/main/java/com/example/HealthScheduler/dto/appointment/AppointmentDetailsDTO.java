@@ -1,6 +1,7 @@
 package com.example.HealthScheduler.dto.appointment;
 
 // import com.example.HealthScheduler.enums.AppointmentStatus;
+import com.example.HealthScheduler.enums.AppointmentStatus;
 import com.example.HealthScheduler.enums.Specialization;
 
 

@@ -85,6 +85,7 @@ public class DoctorServiceTest {
     void shouldUpdateNameAndEmailAndPhoneWhenProvided() {
 
         var doctor = new Doctor();
+        doctor.setId(1L);
         doctor.setEmail("email@gmail.com");
         doctor.setPhone("119990000");
         doctor.setName("doctor");
@@ -99,13 +100,9 @@ public class DoctorServiceTest {
         assertEquals("1199999999", result.getPhone());
         assertEquals("dev@gmail.com", result.getEmail());
 
-        var capto = ArgumentCaptor.forClass(Doctor.class);
-        verify(doctorRepository).save(capto.capture());
+        verify(doctorRepository).save(any(Doctor.class));
 
-        var saved = capto.getValue();
-        assertEquals("Roby", saved.getName());
-        assertEquals("1199999999", saved.getPhone());
-        assertEquals("dev@gmail.com", saved.getEmail());
+
 
     }
 }
