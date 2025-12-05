@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.Mockito.*;
 
-@RequiredArgsConstructor
 public class DoctorServiceTest {
 
     //mocks

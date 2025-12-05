@@ -1,8 +1,11 @@
 package com.example.HealthScheduler.dto.appointment;
 
-import com.example.HealthScheduler.enums.AppointmentStatus;
+// import com.example.HealthScheduler.enums.AppointmentStatus;
 import com.example.HealthScheduler.enums.Specialization;
+
+
 import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
