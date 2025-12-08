@@ -21,12 +21,14 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - meu-postgres # Só inicia depois que o banco iniciar
+      - meu-postgres
     environment:
 
-      - DB_URL=${DB_URL_INTERNAL}
-      - DB_USERNAME=${POSTGRES_USER_ROOT}
-      - DB_PASSWORD=${POSTGRES_PASS_ROOT}
+      - SPRING_DATASOURCE_URL=${DB_URL_INTERNAL}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER_ROOT}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASS_ROOT}
+
+
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
 volumes:

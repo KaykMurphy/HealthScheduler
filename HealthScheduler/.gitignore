@@ -34,3 +34,6 @@ Thumbs.db
 .project
 
 .env
+
+application-dev.properties
+src/main/resources/application-dev.properties
