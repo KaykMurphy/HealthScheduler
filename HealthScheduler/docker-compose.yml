@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  meu-postgres:
+    image: postgres:15-alpine
+    container_name: container-postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
+      - POSTGRES_USER=${POSTGRES_USER_ROOT}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS_ROOT}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+
+  minha-api:
+    build: .
+    container_name: container-api
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - meu-postgres # Só inicia depois que o banco iniciar
+    environment:
+
+      - DB_URL=${DB_URL_INTERNAL}
+      - DB_USERNAME=${POSTGRES_USER_ROOT}
+      - DB_PASSWORD=${POSTGRES_PASS_ROOT}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+volumes:
+  postgres-data:
