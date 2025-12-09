@@ -9,6 +9,7 @@ Sistema de agendamento de consultas médicas desenvolvido com Spring Boot, ofere
 - Spring Data JPA
 - Spring HATEOAS
 - PostgreSQL / H2 Database
+- Docker & Docker Compose
 - Maven
 - Swagger/OpenAPI 3.0
 - Lombok
@@ -16,20 +17,71 @@ Sistema de agendamento de consultas médicas desenvolvido com Spring Boot, ofere
 
 ## 📋 Pré-requisitos
 
+### Opção 1: Executar com Docker (Recomendado)
+- Docker
+- Docker Compose
+
+### Opção 2: Executar Localmente
 - JDK 17 ou superior
 - Maven 3.6+
 - PostgreSQL (ou usar H2 em modo desenvolvimento)
 
 ## ⚙️ Configuração
 
-### 1. Clone o repositório
+### 🐳 Executar com Docker (Recomendado)
+
+A forma mais simples de executar o projeto é usando Docker Compose, que configura automaticamente o banco de dados PostgreSQL e a aplicação.
+
+#### 1. Clone o repositório
 
 ```bash
 git clone https://github.com/KaykMurphy/HealthScheduler.git
 cd HealthScheduler
 ```
 
-### 2. Configure o banco de dados
+#### 2. Execute com Docker Compose
+
+```bash
+docker-compose up -d
+```
+
+Isso irá:
+- Criar um container PostgreSQL configurado
+- Construir e executar a aplicação Spring Boot
+- Configurar automaticamente a rede entre os containers
+
+#### 3. Acesse a aplicação
+
+A API estará disponível em:
+- **API**: `http://localhost:8080`
+- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
+
+#### Comandos úteis do Docker
+
+```bash
+# Ver logs da aplicação
+docker-compose logs -f app
+
+# Parar os containers
+docker-compose down
+
+# Parar e remover volumes (limpa o banco de dados)
+docker-compose down -v
+
+# Reconstruir as imagens
+docker-compose up --build
+```
+
+### 💻 Executar Localmente (Sem Docker)
+
+#### 1. Clone o repositório
+
+```bash
+git clone https://github.com/KaykMurphy/HealthScheduler.git
+cd HealthScheduler
+```
+
+#### 2. Configure o banco de dados
 
 Edite o arquivo `src/main/resources/application.properties`:
 
@@ -47,7 +99,7 @@ spring.jpa.hibernate.ddl-auto=update
 # spring.h2.console.enabled=true
 ```
 
-### 3. Execute o projeto
+#### 3. Execute o projeto
 
 ```bash
 ./mvnw spring-boot:run
@@ -297,6 +349,8 @@ Execute os testes com:
 
 ## 📦 Build
 
+### Build Local
+
 Gerar o JAR do projeto:
 
 ```bash
@@ -305,12 +359,36 @@ Gerar o JAR do projeto:
 
 O arquivo será gerado em `target/HealthScheduler-0.0.1-SNAPSHOT.jar`
 
+### Build com Docker
+
+Construir a imagem Docker:
+
+```bash
+docker build -t healthscheduler:latest .
+```
+
 ## 🚀 Deploy
+
+### Deploy Local
 
 Execute o JAR gerado:
 
 ```bash
 java -jar target/HealthScheduler-0.0.1-SNAPSHOT.jar
+```
+
+### Deploy com Docker
+
+Execute o container:
+
+```bash
+docker run -p 8080:8080 healthscheduler:latest
+```
+
+Ou use Docker Compose para deploy completo:
+
+```bash
+docker-compose up -d
 ```
 
 ## 📝 Licença
