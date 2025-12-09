@@ -1,5 +1,5 @@
 # imagem base
-FROM eclipse-temurin:17-jdk-jammy
+FROM eclipse-temurin:21-jre-alpine
 
 
 WORKDIR /app
