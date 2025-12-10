@@ -4,7 +4,7 @@ Sistema de agendamento de consultas médicas desenvolvido com Spring Boot, ofere
 
 ## 🚀 Tecnologias
 
-- Java 17
+- Java 17.
 - Spring Boot 3.3.3
 - Spring Data JPA
 - Spring HATEOAS
