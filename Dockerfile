@@ -1,14 +1,20 @@
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /app
-COPY . .
-RUN ./mvnw clean package -DskipTests
 
+COPY .mvn/ .mvn
+COPY mvnw mvnw.cmd pom.xml ./
+RUN chmod +x mvnw
+
+RUN ./mvnw dependency:go-offline -B
+
+COPY src ./src
+
+RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-#Copia apenas o arquivo JAR gerado na etapa anterior
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
-#Define o comando padrão que será executado sempre que o contêiner for iniciado.
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
