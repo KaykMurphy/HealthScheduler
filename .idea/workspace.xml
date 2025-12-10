@@ -4,18 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd0c1675-ceef-49c0-b11e-4335ed28a0cf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/HealthScheduler/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HealthScheduler/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HealthScheduler/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/HealthScheduler/src/main/resources/application.properties" afterDir="false" />
+    <list default="true" id="7fd1639b-26f2-4dc4-9c35-5e21b8f4b23c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/appointment/AppointmentDetailsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/appointment/AppointmentRegistrationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/doctor/DoctorDetailsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/doctor/DoctorRegistrationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/doctor/DoctorUpdateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/patient/AddressDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/patient/PatientDetailsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/patient/PatientRegistrationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/patient/PatientUpdateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/schedule/AvailableSlotDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/HealthScheduler/dto/schedule/DoctorScheduleDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Record" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -29,90 +47,39 @@
     &quot;accountId&quot;: &quot;9271b3ac-23aa-4fcf-b965-bb1f4a5996c1&quot;
   }
 }</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 2
+  &quot;associatedIndex&quot;: 1
 }</component>
-  <component name="ProjectId" id="36M4vSTKvVNpxjTAwQGkFypGMP8" />
+  <component name="ProjectId" id="3649gXXFiVveelMI0YjcbZMDWxR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.HealthSchedulerApplication.executor": "Run",
-    "Application.Unnamed (1).executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "JUnit.DoctorServiceTest.shouldUpdateNameAndEmailAndPhoneWhenProvided.executor": "Run",
-    "Maven.HealthScheduler [package].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/kayks/OneDrive/Área de Trabalho/HealthScheduler API",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/kayks/OneDrive/Documentos/HealthScheduler API/HealthScheduler"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.HealthSchedulerApplication">
-    <configuration name="HealthSchedulerApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <envs>
-        <env name="SPRING_PROFILES_ACTIVE" value="dev" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.example.HealthScheduler.HealthSchedulerApplication" />
-      <module name="HealthScheduler" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <module name="HealthScheduler" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DoctorServiceTest.shouldUpdateNameAndEmailAndPhoneWhenProvided" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="HealthScheduler" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.HealthScheduler.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.HealthScheduler.service" />
-      <option name="MAIN_CLASS_NAME" value="com.example.HealthScheduler.service.DoctorServiceTest" />
-      <option name="METHOD_NAME" value="shouldUpdateNameAndEmailAndPhoneWhenProvided" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.HealthSchedulerApplication" />
-      <item itemvalue="JUnit.DoctorServiceTest.shouldUpdateNameAndEmailAndPhoneWhenProvided" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.DoctorServiceTest.shouldUpdateNameAndEmailAndPhoneWhenProvided" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fd0c1675-ceef-49c0-b11e-4335ed28a0cf" name="Changes" comment="" />
-      <created>1764803350535</created>
+      <changelist id="7fd1639b-26f2-4dc4-9c35-5e21b8f4b23c" name="Changes" comment="" />
+      <created>1764255087742</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1764803350535</updated>
+      <updated>1764255087742</updated>
     </task>
     <servers />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
 </project>
