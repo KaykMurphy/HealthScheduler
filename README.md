@@ -2,6 +2,7 @@
 
 Sistema de agendamento de consultas médicas desenvolvido com Spring Boot, oferecendo uma API RESTful completa para gerenciamento de médicos, pacientes e consultas.
 
+
 ## 🚀 Tecnologias
 
 - Java 17.

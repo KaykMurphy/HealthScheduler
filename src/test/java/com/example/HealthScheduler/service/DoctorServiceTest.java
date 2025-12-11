@@ -7,6 +7,7 @@ import com.example.HealthScheduler.dto.doctor.DoctorUpdateDTO;
 import com.example.HealthScheduler.entity.Doctor;
 import com.example.HealthScheduler.enums.Specialization;
 import com.example.HealthScheduler.exception.BusinessException;
+import com.example.HealthScheduler.exception.DoctorNotFoundException;
 import com.example.HealthScheduler.repository.AppointmentRepository;
 import com.example.HealthScheduler.repository.DoctorRepository;
 import com.example.HealthScheduler.repository.DoctorScheduleRepository;
@@ -15,7 +16,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.modelmapper.ModelMapper;
+import org.springframework.util.Assert;
 
+import javax.print.Doc;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -101,8 +105,79 @@ public class DoctorServiceTest {
         assertEquals("dev@gmail.com", result.getEmail());
 
         verify(doctorRepository).save(any(Doctor.class));
+    }
 
+    @Test
+    void shouldThrowExceptionWhenDeactivatingDoctorWithFutureAppointments() {
 
+        Long doctorId = 1L;
+        Doctor doctor = new Doctor();
+        doctor.setId(doctorId);
+        doctor.setActive(true);
 
+        when(doctorRepository.findById(doctorId)).thenReturn(Optional.of(doctor));
+
+        when(appointmentRepository.existsByDoctorIdAndStartTimeAfter(eq(doctorId), any(LocalDateTime.class))).thenReturn(true);
+
+        BusinessException exception = assertThrows(BusinessException.class, () ->
+                doctorService.deactivate(doctorId));
+
+        assertEquals("Não é possível desativar o médico: existem consultas futuras agendadas.", exception.getMessage());
+
+        verify(doctorRepository, never()).save(any());
+
+    }
+
+    @Test
+    void shoudDeactiveDoctorWhenNoFutureAppointements() {
+
+        Long doctorId = 1L;
+        Doctor doctor = new Doctor();
+        doctor.setActive(true);
+        doctor.setId(doctorId);
+
+        when(doctorRepository.findById(doctorId)).thenReturn(Optional.of(doctor));
+
+        when(appointmentRepository.existsByDoctorIdAndStartTimeAfter(eq(doctorId), any(LocalDateTime.class))).thenReturn(false);
+
+        doctorService.deactivate(doctorId);
+
+        assertEquals(false, doctor.isActive());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDoctorNotFoundOnFindById() {
+
+        Long doctorId = 1L;
+
+        when(doctorRepository.findById(doctorId)).thenReturn(Optional.empty());
+
+        DoctorNotFoundException exception = assertThrows(DoctorNotFoundException.class,
+                () -> doctorService.findById(doctorId));
+
+        assertEquals("Médico não encontrado", exception.getMessage());
+    }
+
+    @Test
+    void shouldNotUpdateFieldsWhenNullProvided() {
+
+        Long doctorId = 1L;
+        Doctor doctor = new Doctor();
+        doctor.setId(doctorId);
+        doctor.setPhone("11999999999");
+        doctor.setName("Nome antigo");
+        doctor.setEmail("email@gmail.com");
+
+        when(doctorRepository.findById(doctorId)).thenReturn(Optional.of(doctor));
+
+        DoctorUpdateDTO dto = new DoctorUpdateDTO(null, "11888888888", null);
+
+        DoctorDetailsDTO result = doctorService.update(doctorId, dto);
+
+        assertEquals("Nome antigo", result.getName());
+        assertEquals("email@gmail.com", result.getEmail());
+        assertEquals("11888888888", result.getPhone());
+
+        verify(doctorRepository).save(doctor);
     }
 }
