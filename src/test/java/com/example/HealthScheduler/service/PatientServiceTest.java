@@ -79,6 +79,27 @@ public class PatientServiceTest {
         verify(patientRepository, never()).save(any());
     }
 
+    @Test
+    void shouldThrowExceptionWhenEmailExists() {
+
+        PatientRegistrationDTO dto = new PatientRegistrationDTO(
+                "Mark", "11144477735",
+                LocalDate.of(2025, 1, 17),
+                "99999999999", "teste@gmail.com");
+
+        when(patientRepository.existsByEmail("teste@gmail.com")).thenReturn(true);
+
+        BusinessException exception = assertThrows(BusinessException.class, () ->
+                patientService.register(dto));
+
+        assertEquals("Email já está em uso", exception.getMessage());
+
+        verify(patientRepository, times(1)).existsByEmail("teste@gmail.com");
+        verify(patientRepository, never()).save(any());
+    }
+
+
+
 
 
 
